@@ -1260,7 +1260,7 @@ checksum = "9ea835d29036a4087793836fa931b08837ad5e957da9e23886b29586fb9b6650"
 [[package]]
 name = "egui"
 version = "0.11.0"
-source = "git+https://github.com/emilk/egui#cf3d12669cf4be4e296ce544f7b6cb9190fa1e6a"
+source = "git+https://github.com/ndarilek/egui#94086d83a142afde8def68b34977820a891933ee"
 dependencies = [
  "epaint",
 ]
@@ -1268,7 +1268,7 @@ dependencies = [
 [[package]]
 name = "emath"
 version = "0.11.0"
-source = "git+https://github.com/emilk/egui#cf3d12669cf4be4e296ce544f7b6cb9190fa1e6a"
+source = "git+https://github.com/ndarilek/egui#94086d83a142afde8def68b34977820a891933ee"
 
 [[package]]
 name = "env_logger"
@@ -1283,7 +1283,7 @@ dependencies = [
 [[package]]
 name = "epaint"
 version = "0.11.0"
-source = "git+https://github.com/emilk/egui#cf3d12669cf4be4e296ce544f7b6cb9190fa1e6a"
+source = "git+https://github.com/ndarilek/egui#94086d83a142afde8def68b34977820a891933ee"
 dependencies = [
  "ahash 0.7.2",
  "atomic_refcell",

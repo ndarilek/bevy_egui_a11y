@@ -20,6 +20,9 @@ fn start_menu(context: Res<EguiContext>) {
         if ui.button("Quit").clicked() {
             println!("Quit clicked");
         }
+        if context.ctx().memory().focus().is_none() {
+            start.request_focus();
+        }
     });
 }
 
