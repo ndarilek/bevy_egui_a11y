@@ -37,7 +37,7 @@ fn start_menu(context: Res<EguiContext>) {
 fn screen_reader(context: Res<EguiContext>, mut tts: ResMut<Tts>) {
     let events = &context.ctx().output().events;
     for event in events {
-    let OutputEvent::WidgetEvent(WidgetEvent::Focus, widget_info) = event ;
-            tts.speak(widget_info.description(), true).unwrap();
+        let OutputEvent::WidgetEvent(WidgetEvent::Focus, widget_info) = event;
+        tts.speak(widget_info.description(), true).unwrap();
     }
 }
