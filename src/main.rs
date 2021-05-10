@@ -1,9 +1,6 @@
 use bevy::prelude::*;
 use bevy_egui::{
-    egui::{
-        self,
-        output::{OutputEvent, WidgetEvent},
-    },
+    egui::{self, output::OutputEvent},
     EguiContext, EguiPlugin,
 };
 use bevy_tts::*;
@@ -37,7 +34,10 @@ fn start_menu(context: Res<EguiContext>) {
 fn screen_reader(context: Res<EguiContext>, mut tts: ResMut<Tts>) {
     let events = &context.ctx().output().events;
     for event in events {
-        let OutputEvent::WidgetEvent(WidgetEvent::Focus, widget_info) = event;
-        tts.speak(widget_info.description(), true).unwrap();
+        match event {
+            OutputEvent::FocusGained(widget_info) => {
+                tts.speak(widget_info.description(), true).unwrap();
+            }
+        };
     }
 }

@@ -796,6 +796,25 @@ dependencies = [
  "bitflags",
  "cexpr",
  "clang-sys",
+ "lazy_static",
+ "lazycell",
+ "peeking_take_while",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "rustc-hash",
+ "shlex 0.1.1",
+]
+
+[[package]]
+name = "bindgen"
+version = "0.58.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0f8523b410d7187a43085e7e064416ea32ded16bd0a4e6fc025e21616d01258f"
+dependencies = [
+ "bitflags",
+ "cexpr",
+ "clang-sys",
  "clap",
  "env_logger 0.8.3",
  "lazy_static",
@@ -806,7 +825,7 @@ dependencies = [
  "quote",
  "regex",
  "rustc-hash",
- "shlex",
+ "shlex 1.0.0",
  "which",
 ]
 
@@ -1170,7 +1189,7 @@ version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b7e3347be6a09b46aba228d6608386739fb70beff4f61e07422da87b0bb31fa"
 dependencies = [
- "bindgen",
+ "bindgen 0.56.0",
 ]
 
 [[package]]
@@ -1343,7 +1362,7 @@ checksum = "ee2626afccd7561a06cf1367e2950c4718ea04565e20fb5029b6c7d8ad09abcf"
 [[package]]
 name = "egui"
 version = "0.11.0"
-source = "git+https://github.com/ndarilek/egui#94086d83a142afde8def68b34977820a891933ee"
+source = "git+https://github.com/ndarilek/egui#0981f8519ad487bfc9f6d79b85f2cfc6e79d78f1"
 dependencies = [
  "epaint",
 ]
@@ -1351,7 +1370,7 @@ dependencies = [
 [[package]]
 name = "emath"
 version = "0.11.0"
-source = "git+https://github.com/ndarilek/egui#94086d83a142afde8def68b34977820a891933ee"
+source = "git+https://github.com/ndarilek/egui#0981f8519ad487bfc9f6d79b85f2cfc6e79d78f1"
 
 [[package]]
 name = "env_logger"
@@ -1379,7 +1398,7 @@ dependencies = [
 [[package]]
 name = "epaint"
 version = "0.11.0"
-source = "git+https://github.com/ndarilek/egui#94086d83a142afde8def68b34977820a891933ee"
+source = "git+https://github.com/ndarilek/egui#0981f8519ad487bfc9f6d79b85f2cfc6e79d78f1"
 dependencies = [
  "ahash 0.7.2",
  "atomic_refcell",
@@ -3061,6 +3080,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7fdf1b9db47230893d76faad238fd6097fd6d6a9245cd7a4d90dbd639536bbd2"
 
 [[package]]
+name = "shlex"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42a568c8f2cd051a4d283bd6eb0343ac214c1b0f1ac19f93e1175b2dee38c73d"
+
+[[package]]
 name = "slab"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3108,7 +3133,7 @@ version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b662a91fe7e39d3d11edcf0297c717a8c05683a6c6445df9aba83b034b2b2db5"
 dependencies = [
- "bindgen",
+ "bindgen 0.58.1",
  "gcc",
 ]
 
