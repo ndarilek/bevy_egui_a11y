@@ -14,7 +14,6 @@ fn start_menu(context: Res<EguiContext>) {
     context.ctx().memory().options.screen_reader = true;
     egui::CentralPanel::default().show(context.ctx(), |ui| {
         let start = ui.button("Start");
-        start.request_focus();
         if start.clicked() {
             println!("Start clicked");
         }
