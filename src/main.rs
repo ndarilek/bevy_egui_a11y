@@ -1,12 +1,20 @@
 use bevy::prelude::*;
-use bevy_egui::{egui, EguiContext, EguiPlugin};
+use bevy_egui::{
+    egui::{
+        self,
+        output::{OutputEvent, WidgetEvent},
+    },
+    EguiContext, EguiPlugin,
+};
+use bevy_tts::*;
 
 fn main() {
     App::build()
         .add_plugins(DefaultPlugins)
         .add_plugin(EguiPlugin)
+        .add_plugin(TtsPlugin)
         .add_system(start_menu.system())
-        .add_system(screen_reader.system())
+        .add_system_to_stage(CoreStage::PostUpdate, screen_reader.system())
         .run();
 }
 
@@ -26,14 +34,10 @@ fn start_menu(context: Res<EguiContext>) {
     });
 }
 
-fn screen_reader(context: Res<EguiContext>, mut last_seen_event: Local<usize>) {
+fn screen_reader(context: Res<EguiContext>, mut tts: ResMut<Tts>) {
     let events = &context.ctx().output().events;
-    if events.len() > 0 {
-        println!("{:?}", events);
-    }
-    let events = &events[0..events.len()];
     for event in events {
-        println!("{:?}", event);
+    let OutputEvent::WidgetEvent(WidgetEvent::Focus, widget_info) = event ;
+            tts.speak(widget_info.description(), true).unwrap();
     }
-    *last_seen_event = events.len();
 }

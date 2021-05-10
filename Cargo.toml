@@ -9,6 +9,6 @@ edition = "2018"
 [dependencies]
 bevy = "0.5"
 bevy_egui = "0.4"
-
+bevy_tts = { git = "https://github.com/lightsoutgames/bevy_tts" }
 [patch.crates-io]
 egui = { git = "https://github.com/ndarilek/egui" }
