@@ -7,6 +7,10 @@ use bevy_tts::*;
 
 fn main() {
     App::build()
+        .insert_resource(WindowDescriptor {
+            title: "Simple Bevy egui Screen Reader".into(),
+            ..Default::default()
+        })
         .add_plugins(DefaultPlugins)
         .add_plugin(EguiPlugin)
         .add_plugin(TtsPlugin)
