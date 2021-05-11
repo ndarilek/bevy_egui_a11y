@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{app::AppExit, prelude::*};
 use bevy_egui::{
     egui::{self, output::OutputEvent},
     EguiContext, EguiPlugin,
@@ -15,7 +15,7 @@ fn main() {
         .run();
 }
 
-fn start_menu(context: Res<EguiContext>) {
+fn start_menu(context: Res<EguiContext>, mut exit: EventWriter<AppExit>, mut ran: Local<bool>) {
     context.ctx().memory().options.screen_reader = true;
     egui::CentralPanel::default().show(context.ctx(), |ui| {
         let start = ui.button("Start");
@@ -23,10 +23,11 @@ fn start_menu(context: Res<EguiContext>) {
             println!("Start clicked");
         }
         if ui.button("Quit").clicked() {
-            println!("Quit clicked");
+            exit.send(AppExit);
         }
-        if context.ctx().memory().focus().is_none() {
+        if !*ran {
             start.request_focus();
+            *ran = true;
         }
     });
 }
