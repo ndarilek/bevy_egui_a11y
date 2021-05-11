@@ -19,11 +19,12 @@ fn main() {
         .run();
 }
 
-fn start_menu(context: Res<EguiContext>, mut exit: EventWriter<AppExit>, mut ran: Local<bool>) {
+fn start_menu(context: Res<EguiContext>, mut tts: ResMut<Tts>, mut exit: EventWriter<AppExit>, mut ran: Local<bool>) {
     context.ctx().memory().options.screen_reader = true;
     egui::CentralPanel::default().show(context.ctx(), |ui| {
         let start = ui.button("Start");
         if start.clicked() {
+            tts.speak("Start clicked", true).unwrap();
             println!("Start clicked");
         }
         if ui.button("Quit").clicked() {
