@@ -13,4 +13,4 @@ bevy_tts = { git = "https://github.com/lightsoutgames/bevy_tts" }
 difference = "2"
 
 [patch.crates-io]
-egui = { git = "https://github.com/ndarilek/egui", branch = "fix-focus-somehow" }
+egui = { git = "https://github.com/ndarilek/egui", branch = "master" }

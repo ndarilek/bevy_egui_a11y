@@ -50,16 +50,11 @@ fn start_menu(
     });
 }
 
-fn screen_reader(
-    context: Res<EguiContext>,
-    mut tts: ResMut<Tts>,
-    mut cached_text_selection: Local<Option<std::ops::RangeInclusive<usize>>>,
-) {
-    let events = &context.ctx().output().events;
-    for event in events {
+fn screen_reader(context: Res<EguiContext>, mut tts: ResMut<Tts>) {
+    for event in &context.ctx().output().events {
+        println!("{:?}", event);
         match event {
             OutputEvent::Clicked(widget_info) => {
-                *cached_text_selection = None;
                 if let Some(selected) = widget_info.selected {
                     if widget_info.typ == WidgetType::Checkbox {
                         if selected {
@@ -75,24 +70,19 @@ fn screen_reader(
                 }
             }
             OutputEvent::FocusGained(widget_info) => {
-                *cached_text_selection = None;
                 tts.speak(widget_info.description(), true).unwrap();
             }
             OutputEvent::TextSelectionChanged(widget_info) => {
                 if let Some(text_selection) = widget_info.text_selection.clone() {
-                    if widget_info.text_selection != *cached_text_selection {
-                        if let Some(text) = &widget_info.current_text_value {
-                            if text_selection.start() < &text.len() {
-                                let str = &text[text_selection.clone()];
-                                tts.speak(str, true).unwrap();
-                            }
+                    if let Some(text) = &widget_info.current_text_value {
+                        if text_selection.start() < &text.len() {
+                            let str = &text[text_selection.clone()];
+                            tts.speak(str, true).unwrap();
                         }
                     }
-                    *cached_text_selection = Some(text_selection);
                 }
             }
             OutputEvent::ValueChanged(widget_info) => {
-                *cached_text_selection = None;
                 if let (Some(text), Some(prev)) = (
                     &widget_info.current_text_value,
                     &widget_info.prev_text_value,
@@ -102,19 +92,14 @@ fn screen_reader(
                         tts.stop().unwrap();
                         use difference::Difference;
                         match change {
-                            Difference::Add(str) => {
-                                tts.speak(str, false).unwrap();
-                            }
-                            Difference::Rem(str) => {
-                                tts.speak(str, false).unwrap();
-                            }
-                            _ => {}
+                            Difference::Add(str) => tts.speak(str, false).unwrap(),
+                            Difference::Rem(str) => tts.speak(str, false).unwrap(),
+                            _ => None,
                         };
                     }
                 }
             }
             v => {
-                *cached_text_selection = None;
                 println!("{:?}", v);
             }
         };
