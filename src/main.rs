@@ -38,7 +38,7 @@ fn start_menu(
         ui.checkbox(&mut *checked, "Check me");
         ui.horizontal(|ui| {
             ui.label("Username");
-            ui.text_edit_singleline(&mut username);
+            ui.text_edit_singleline(&mut *username);
         });
         if ui.button("Quit").clicked() {
             exit.send(AppExit);
