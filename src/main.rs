@@ -1,6 +1,6 @@
 use bevy::{app::AppExit, prelude::*};
 use bevy_egui::{
-    egui::{self, output::OutputEvent, WidgetType},
+    egui::{self, output::OutputEvent, TextEdit, WidgetType},
     EguiContext, EguiPlugin,
 };
 use bevy_tts::*;
@@ -27,6 +27,7 @@ fn start_menu(
     mut ran: Local<bool>,
     mut checked: Local<bool>,
     mut username: Local<String>,
+    mut password: Local<String>,
 ) {
     context.ctx().memory().options.screen_reader = true;
     egui::CentralPanel::default().show(context.ctx(), |ui| {
@@ -39,6 +40,10 @@ fn start_menu(
         ui.horizontal(|ui| {
             ui.label("Username");
             ui.text_edit_singleline(&mut *username);
+        });
+        ui.horizontal(|ui| {
+            ui.label("Password");
+            ui.add(TextEdit::singleline(&mut *password).password(true));
         });
         if ui.button("Quit").clicked() {
             exit.send(AppExit);
