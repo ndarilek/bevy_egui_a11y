@@ -7,7 +7,7 @@ use bevy_tts::*;
 use difference::Changeset;
 
 fn main() {
-    App::build()
+    App::new()
         .insert_resource(WindowDescriptor {
             title: "Simple Bevy egui Screen Reader".into(),
             ..Default::default()

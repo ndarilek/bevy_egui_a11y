@@ -11,3 +11,4 @@ bevy = "0.6"
 bevy_egui = "0.10"
 bevy_tts = { git = "https://github.com/lightsoutgames/bevy_tts" }
 difference = "2"
+egui = { version = "0.16", features = ["multi_threaded"] }

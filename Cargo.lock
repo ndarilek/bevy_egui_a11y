@@ -387,6 +387,7 @@ dependencies = [
  "bevy_egui",
  "bevy_tts",
  "difference",
+ "egui",
 ]
 
 [[package]]
@@ -1459,6 +1460,7 @@ dependencies = [
  "atomic_refcell",
  "emath",
  "nohash-hasher",
+ "parking_lot",
 ]
 
 [[package]]
