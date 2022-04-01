@@ -17,8 +17,11 @@ fn main() {
         .add_plugin(EguiPlugin)
         .add_plugin(KbgpPlugin)
         .add_plugin(TtsPlugin)
-        .add_system(start_menu.system())
-        .add_system_to_stage(CoreStage::PostUpdate, screen_reader.system())
+        .add_system(start_menu)
+        .add_system_to_stage(
+            CoreStage::PostUpdate,
+            screen_reader.before(bevy_egui::EguiSystem::ProcessOutput),
+        )
         .run();
 }
 
