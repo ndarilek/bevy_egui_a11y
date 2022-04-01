@@ -3,6 +3,7 @@ use bevy_egui::{
     egui::{self, output::OutputEvent, TextEdit, WidgetType},
     EguiContext, EguiPlugin,
 };
+use bevy_egui_kbgp::prelude::*;
 use bevy_tts::*;
 use difference::Changeset;
 
@@ -14,6 +15,7 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugin(EguiPlugin)
+        .add_plugin(KbgpPlugin)
         .add_plugin(TtsPlugin)
         .add_system(start_menu.system())
         .add_system_to_stage(CoreStage::PostUpdate, screen_reader.system())
@@ -24,33 +26,33 @@ fn start_menu(
     context: Res<EguiContext>,
     mut tts: ResMut<Tts>,
     mut exit: EventWriter<AppExit>,
-    mut ran: Local<bool>,
     mut checked: Local<bool>,
     mut username: Local<String>,
     mut password: Local<String>,
 ) {
     context.ctx().memory().options.screen_reader = true;
     egui::CentralPanel::default().show(context.ctx(), |ui| {
-        let start = ui.button("Start");
-        if start.clicked() {
+        if ui
+            .button("Start")
+            .kbgp_initial_focus()
+            .kbgp_navigation()
+            .clicked()
+        {
             tts.speak("Start clicked", true).unwrap();
             println!("Start clicked");
         }
-        ui.checkbox(&mut *checked, "Check me");
+        ui.checkbox(&mut *checked, "Check me").kbgp_navigation();
         ui.horizontal(|ui| {
-            ui.label("Username");
-            ui.text_edit_singleline(&mut *username);
+            ui.label("Username").kbgp_navigation();
+            ui.text_edit_singleline(&mut *username).kbgp_navigation();
         });
         ui.horizontal(|ui| {
-            ui.label("Password");
-            ui.add(TextEdit::singleline(&mut *password).password(true));
+            ui.label("Password").kbgp_navigation();
+            ui.add(TextEdit::singleline(&mut *password).password(true))
+                .kbgp_navigation();
         });
-        if ui.button("Quit").clicked() {
+        if ui.button("Quit").kbgp_navigation().clicked() {
             exit.send(AppExit);
-        }
-        if !*ran {
-            start.request_focus();
-            *ran = true;
         }
     });
 }

@@ -8,7 +8,7 @@ edition = "2021"
 
 [dependencies]
 bevy = "0.6"
-bevy_egui = "0.10"
+bevy_egui = { version = "0.12", features = ["multi_threaded"] }
+bevy-egui-kbgp = { path = "crates/bevy-egui-kbgp" }
 bevy_tts = { git = "https://github.com/lightsoutgames/bevy_tts" }
 difference = "2"
-egui = { version = "0.16", features = ["multi_threaded"] }
