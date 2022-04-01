@@ -239,6 +239,7 @@ dependencies = [
 [[package]]
 name = "bevy-egui-kbgp"
 version = "0.2.0"
+source = "git+https://github.com/idanarye/bevy-egui-kbgp?branch=fix-focus-event-emission#6434736c3ea5be82c1d7b67e4d08a16134e453af"
 dependencies = [
  "bevy",
  "bevy_egui",
