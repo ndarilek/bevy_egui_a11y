@@ -7,6 +7,12 @@ use bevy_egui_kbgp::prelude::*;
 use bevy_tts::*;
 use difference::Changeset;
 
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+enum AppState {
+    StartMenu,
+    SubMenu,
+}
+
 fn main() {
     App::new()
         .insert_resource(WindowDescriptor {
@@ -17,7 +23,9 @@ fn main() {
         .add_plugin(EguiPlugin)
         .add_plugin(KbgpPlugin)
         .add_plugin(TtsPlugin)
-        .add_system(start_menu)
+        .add_state(AppState::StartMenu)
+        .add_system_set(SystemSet::on_update(AppState::StartMenu).with_system(start_menu))
+        .add_system_set(SystemSet::on_update(AppState::SubMenu).with_system(sub_menu))
         .add_system_to_stage(
             CoreStage::PostUpdate,
             screen_reader.before(bevy_egui::EguiSystem::ProcessOutput),
@@ -32,6 +40,7 @@ fn start_menu(
     mut checked: Local<bool>,
     mut username: Local<String>,
     mut password: Local<String>,
+    mut state: ResMut<State<AppState>>,
 ) {
     context.ctx().memory().options.screen_reader = true;
     egui::CentralPanel::default().show(context.ctx(), |ui| {
@@ -54,8 +63,29 @@ fn start_menu(
             ui.add(TextEdit::singleline(&mut *password).password(true))
                 .kbgp_navigation();
         });
+        if ui.button("Submenu").kbgp_navigation().clicked() {
+            ui.kbgp_clear_input();
+            state.push(AppState::SubMenu).unwrap();
+        }
         if ui.button("Quit").kbgp_navigation().clicked() {
             exit.send(AppExit);
+        }
+    });
+}
+
+fn sub_menu(context: Res<EguiContext>, mut tts: ResMut<Tts>, mut state: ResMut<State<AppState>>) {
+    egui::CentralPanel::default().show(context.ctx(), |ui| {
+        if ui
+            .button("Initial submenu focus")
+            .kbgp_initial_focus()
+            .kbgp_navigation()
+            .clicked()
+        {
+            tts.speak("Submenu focus clicked", true).unwrap();
+        }
+        if ui.button("Back").kbgp_navigation().clicked() {
+            ui.kbgp_clear_input();
+            state.pop().unwrap();
         }
     });
 }
